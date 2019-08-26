@@ -1,5 +1,6 @@
 <?php
 require_once '../config/database.php';
+require_once '../config/config.php';
 require_once '../classes/produto.php';
 require_once '../classes/m_produto.php';
 require_once '../classes/imposto.php';
@@ -29,4 +30,13 @@ $db = DB::getInstance();
 // var_dump($restante+$desconto);
 
 
-require_once 'views/template.php';
+$pagina = (!isset($_GET['p']) OR $_GET['p'] == '') ? 'start' : strtolower($_GET['p']);
+//TODO Remover a linha abaixo ao terminar de desenvolver
+$pagina = ($pagina =='start') ? 'template' : $pagina;//FIXME
+
+$viewFile = (file_exists("views".DIRECTORY_SEPARATOR."pages".DIRECTORY_SEPARATOR.$pagina.".php")) 
+? "views".DIRECTORY_SEPARATOR."pages".DIRECTORY_SEPARATOR.$pagina.".php" 
+: "views".DIRECTORY_SEPARATOR."errors".DIRECTORY_SEPARATOR."404.php";
+
+require_once $viewFile;
+
