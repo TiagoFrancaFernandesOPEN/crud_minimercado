@@ -79,6 +79,9 @@ button.produto{
 
 .fixed-box {
   position: fixed;
+  bottom: 10px;
+  z-index: 1000;
+  right: 10px;
 }
 
 /* 
@@ -146,6 +149,10 @@ Página PDV
   background:white;
 }
 
+.uppercase{
+  text-transform: uppercase;
+}
+
 #limparItemSearch{
   font-size: 12px;
   /* padding: 12px 24px; */
@@ -163,17 +170,68 @@ Página PDV
     margin-left: 5%;
 }
 
+.produtoInputContainer label {
+    border: aliceblue solid 1px;
+    width: 100%;
+    display: inline-grid;
+    text-indent: 10%;
+    font-size: 1.2em;
+    line-height: 0px;
+    border-radius: 10px;
+    margin-bottom: 0.5em;
+}
+
+.produtoInputContainer label span {
+    line-height: 0px;
+    display: inline-grid;
+    background: white !important;
+    padding: 5%;
+    color: black;
+    border-radius: 10px 10px 0 0;
+    text-transform: uppercase;
+}
+
+.produtoInputContainer label input,.produtoInputContainer label input:hover {
+    color: #000;
+    background: #fff;
+    width: 75%;
+    height: 2em;
+    margin: 0.3em;
+}
+
+.papelTermico {
+    background: #f6f6b8;
+    padding: 0.5em;
+    font-family: monospace;
+    width: 90%;
+    color: #534949;
+    max-height:480px;
+    overflow:auto;
+}
+.papelTermico table thead tr th, .papelTermico table tbody tr td{
+  font-weight: lighter !important;
+  font-size: 0.9em !important;
+  font-size: 0.7em !important;
+}
+
+.dashed{
+  border: 0 none;
+  border-top: 2px dashed #322f32;
+  background: none;
+  height:0;
+} 
+
 @media (max-width: 500px)
 {
-#itemSearchAdd {
-    padding: 6px;
-    font-size: large;
-    float: unset;
-    margin-right: unset;
-}
-.topBorder{
-  border-top: white solid 1px;
-  padding-top: 5px;
-  margin-top: 5px;
-}
+  #itemSearchAdd {
+      padding: 6px;
+      font-size: large;
+      float: unset;
+      margin-right: unset;
+  }
+  .topBorder{
+    border-top: white solid 1px;
+    padding-top: 5px;
+    margin-top: 5px;
+  }
 }

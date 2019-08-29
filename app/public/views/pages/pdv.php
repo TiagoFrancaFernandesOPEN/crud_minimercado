@@ -8,6 +8,7 @@ $pageTitle = APP_NAME;
 
 
 <div class="container_produtos">
+  <span id="topIsHere" style="display:none;"></span>
   <div class="pdv_container">    
     <div class="row">      
       <div class="col c10">
@@ -18,7 +19,7 @@ $pageTitle = APP_NAME;
           onclick="jQuery('#itemSearch').val('')" id="limparItemSearch">Limpar Busca</button>
         </div>
         <div class="col c2 topBorder">
-          <input id="qtdItemSearch" type="number" placeholder="QTD" value="" name="qtd" min="1"
+          <input id="qtdItemSearch" type="number" placeholder="QTD" value="1" name="qtd" min="1"
             list="qtdItemSearchValoresPadrao">
           <span class="validity"></span>
           <datalist id="qtdItemSearchValoresPadrao">
@@ -37,13 +38,67 @@ $pageTitle = APP_NAME;
       </div>
       <div class="row">
         <div class="col c8">
-          ALGO
+          <div class="row">
+            <div class="col c3">
+              <div class="row">
+                <div class="col c11 produtoInputContainer">
+                  <label style=><span>Operador:</span>
+                    <input class="btn btn-sm btn-c" type="text" placeholder="Operador" disabled>
+                  </label>
+                  <label><span>Data:</span>
+                    <input class="btn btn-sm btn-a produtoInputVal" type="text" placeholder="dd/mm/yyyy" disabled>
+                  </label>
+                  <label><span>Hora atual:</span>
+                    <input class="btn btn-sm btn-b produtoInputVal" type="text" placeholder="hh:mm:ss" disabled>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col c8">
+              <div class="row">
+                <div class="col c8 papelTermico">
+                  <table id="tabelaPapelTermico">
+                    <thead>
+                      <tr>
+                        <th>-----------------------------------<br>
+                        ------ MINIMERCADO ------<br>
+                        -----------------------------------<br>
+                        dd/mm/yyyy hh:mm:ss<br>
+                        -----------------------------------<br>
+                        ----- CUPOM NÃO FISCAL ----<br>                        
+                        <span style="float: left;text-align: left;">
+                          -------------------------------------------------<br>
+                          ITEM   CÓDIGO   DESCRIÇÃO   VL_UN   QTD   SUBTOTAL<br>
+                          -------------------------------------------------<br>
+                        </span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>                  
+                </div>
+                <button class="btn btn-sm toTop ocultarDesktop fixed-box">Subir</button>
+              </div>
+            </div>
+            <div class="col c12" style="background: red;">Algo</div>
+          </div>
         </div>
-        <div class="col c4 topBorder">
-          <button class="btn btn-sm btn-a quickActionBtn" type="button">Finalizar venda</button>
-          <button class="btn btn-sm btn-c quickActionBtn" type="button">Cancelar venda</button>
-          <button class="btn btn-sm btn-b quickActionBtn" type="button">Tributos</button>
-          <button class="btn btn-sm btn-b quickActionBtn" type="button">Estoque</button>
+        <div class="col c4 produtoInputContainer">
+          <label><span>Código de barras:</span>
+            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Código de barras" />
+          </label>
+          <label><span>Código de Cadastro:</span>
+            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Código de Cadastro" />
+          </label>
+          <label><span>Quantidade:</span>
+            <input class="btn btn-sm btn-c produtoInputVal" type="number" placeholder="Quantidade"/>
+          </label>
+          <label><span>Valor unitário:</span>
+            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Valor unitário" disabled />
+          </label>
+          <label><span>Subtotal:</span>
+            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Subtotal" disabled />
+          </label>
         </div>
       </div>
       </div>
@@ -55,6 +110,7 @@ $pageTitle = APP_NAME;
               <button class="btn btn-sm btn-c quickActionBtn" type="button">Cancelar venda</button>
               <button class="btn btn-sm btn-b quickActionBtn" type="button">Tributos</button>
               <button class="btn btn-sm btn-b quickActionBtn" type="button">Estoque</button>
+              <button class="btn btn-sm btn-b quickActionBtn" type="button">Cancelar Item</button>
             </div>
         </div>
       </div><!-- FIM Sidebar Direita -->
@@ -89,6 +145,7 @@ $pageTitle = APP_NAME;
         <h3>Titulo</h3>
         <br>
         <a href="#link" class="btn btn-sm btn-c">Botão</a>
+        <button class="btn btn-sm btn-b toTop ocultarDesktop">Subir</button>
       </div>
     </div>
   </div>
@@ -117,6 +174,24 @@ $pageTitle = APP_NAME;
         </tbody>
       </table>
     </div> -->
+    <div>
+    
+    
+      
+      <div id="div1" style="height: 1000px; width 100px">
+        Test
+      </div>
+      <br>
+      <div id="div2" style="height: 1000px; width 100px">
+        Test 2
+      </div>
+    
+      <script type="text/javascript">
+
+      </script>
+    
+     
+    </div>
 </div>
 
 <?php require_once '_includes/footer.php' ?>
