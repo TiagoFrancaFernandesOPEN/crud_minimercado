@@ -17,10 +17,19 @@ function rolarPapelTermico()
 
 function adicionaZeros(numero)
 {
-  numero = (numero < 10) ? "00" + numero : numero;
-  numero = (numero >= 10 && numero < 100) ? "0" + numero : numero;
+  numero = parseInt(numero);
+  if(numero == null || numero == ""){
+    numero = "";
+  }else if(numero >= 10 && numero < 100){
+    numero = "0"+numero;
+  }else if (numero >= 1 && numero < 10) {
+    numero = "00" + numero;
+  }else{
+    numero = numero;
+  };
   return numero;
 }
+
 function adicionarLinhaAoCupom()
 {
   var itemSeqNum = jQuery('#tabelaPapelTermico tbody tr').length;
@@ -38,6 +47,13 @@ function removerItemDoCupom(id)
 {
   var itemSeqNum = adicionaZeros(id);
   jQuery('#prodItemCupom_'+itemSeqNum+' > td > span').css('text-decoration','line-through')
+}
+
+function promptRemoverItemDoCupom() {
+  var itemNoCupom = prompt("Informa o número do item a ser cancelado:", "");
+  if (itemNoCupom != null || itemNoCupom != "") {
+    removerItemDoCupom(adicionaZeros(itemNoCupom));
+  } 
 }
 
 //Adiconar eventos ao carregar a página

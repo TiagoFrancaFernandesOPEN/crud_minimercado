@@ -80,7 +80,16 @@ $pageTitle = APP_NAME;
                 <button class="btn btn-sm toTop ocultarDesktop fixed-box">Subir</button>
               </div>
             </div>
-            <div class="col c12" style="background: red;">Algo</div>
+            <div class="col c12" style="background: red;">
+              <script>
+              function gerar10() {
+                for(i=0;i<10;i++){
+                  adicionarLinhaAoCupom();
+                }
+              }
+              </script>
+            <button onclick="gerar10()">Gerar 10 itens</button>
+            </div>
           </div>
         </div>
         <div class="col c4 produtoInputContainer">
@@ -110,7 +119,7 @@ $pageTitle = APP_NAME;
               <button class="btn btn-sm btn-c quickActionBtn" type="button">Cancelar venda</button>
               <button class="btn btn-sm btn-b quickActionBtn" type="button">Tributos</button>
               <button class="btn btn-sm btn-b quickActionBtn" type="button">Estoque</button>
-              <button class="btn btn-sm btn-b quickActionBtn" type="button">Cancelar Item</button>
+              <button class="btn btn-sm btn-b quickActionBtn" type="button" onclick="promptRemoverItemDoCupom()">Cancelar Item</button>
             </div>
         </div>
       </div><!-- FIM Sidebar Direita -->
