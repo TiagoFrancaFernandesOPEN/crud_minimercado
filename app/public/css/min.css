@@ -89,7 +89,8 @@ form>* {
 }
 
 .row {
-    margin: 1% 0;
+    /* margin: 1% 0; */
+    margin: 0;
     overflow: auto
 }
 

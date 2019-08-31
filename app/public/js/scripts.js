@@ -1,3 +1,12 @@
+function scrollToID(aid) {
+  var aTag = jQuery("#" + aid);
+  if (aTag.length) {
+    jQuery('html,body').animate({ scrollTop: aTag.offset().top }, 'slow');
+  }else{
+    console.log('Nenhum item com o ID "'+aid+'"');
+  };
+}
+
 var key = 'p', value = 'start', here = window.location.href;
 function updateQueryStringParameter(uri, key, value) {
   var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
@@ -56,20 +65,38 @@ function promptRemoverItemDoCupom() {
   } 
 }
 
+function promptGoToStart() { 
+  if (! confirm('Deseja sair da tela de vendas?')) {
+    return false;
+  }else{
+    window.location.href = goToStart;
+  }
+}
+
 //Adiconar eventos ao carregar a página
 jQuery(document).ready(function () {
   jQuery('#itemSearch').focus();
+
   jQuery('.go.btnGoToStart').on('click', function () {
     window.location.href = goToStart;
   });
+
   jQuery('#itemSearch').on('change',function(){
     jQuery('#qtdItemSearch').val('1');
   });
 
-  $(".toTop").click(function () {
-    $('html, body').animate({
-      scrollTop: $("#topIsHere").offset().top
-    }, 1000);
+  // jQuery(".toTop").click(function () {
+  //   jQuery('html, body').animate({
+  //     scrollTop: jQuery("#topIsHere").offset().top
+  //   }, 1000);
+  // });
+
+  jQuery(".toTop").click(function () {
+    scrollToID('topIsHere');
+  });
+
+  jQuery(".go_acoes_venda").click(function () {
+    scrollToID('acoes_venda');
   });
 
 });
