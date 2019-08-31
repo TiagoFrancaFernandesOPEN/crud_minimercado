@@ -1,12 +1,8 @@
 <?php
-require_once '../config/database.php';
-require_once '../config/config.php';
-require_once '../classes/produto.php';
-require_once '../classes/m_produto.php';
-require_once '../classes/imposto.php';
-require_once '../classes/m_imposto.php';
+require_once './controllers_api/c_produtos.php';
 
 $db = DB::getInstance();
+
 
 // $produto = new Produto;
 // $produto->setAllInLine(11113,'produto','ativo',1002,'importado');
@@ -29,19 +25,28 @@ $db = DB::getInstance();
 // var_dump($restante);
 // var_dump($restante+$desconto);
 
+$_ProdutosController = new ProdutosController();
 
-$pagina = (!isset($_GET['p']) OR $_GET['p'] == '') 
-? 'start' 
-: strtolower($_GET['p']);
+$action = (!isset($_GET['api_action']) OR $_GET['api_action'] == '')
+? 'listar_produtos' 
+: strtolower($_GET['api_action']);
 
-//TODO Remover a linha abaixo ao terminar de desenvolver
-$pagina = ($pagina =='start') ? 'template' : $pagina;//FIXME
-
-$viewFile = (file_exists(
-  "views".DIRECTORY_SEPARATOR."pages".DIRECTORY_SEPARATOR.$pagina.".php"
-  )) 
-? "views".DIRECTORY_SEPARATOR."pages".DIRECTORY_SEPARATOR.$pagina.".php" 
-: "views".DIRECTORY_SEPARATOR."errors".DIRECTORY_SEPARATOR."404.php";
-
-require_once $viewFile;
+$query = (isset($_GET['query']) AND $_GET['query'] != '')?$_GET['query']:false;
+switch ($action) {
+  default:
+  case 'listar_produtos':
+  $inArray = (isset($_GET['array']) AND $_GET['array'] == 'true')?true:false;
+  return $_ProdutosController->listarProdutos($inArray);
+    break;
+  case 'produto_codigo':
+  if($query){
+    return $_ProdutosController->buscarPorCodigo($query);
+  }
+    break;
+  case 'nome':
+  if($query){
+    return $_ProdutosController->buscarPorNome($query);
+  }
+    break;  
+}
 

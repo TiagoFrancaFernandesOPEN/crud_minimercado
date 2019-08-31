@@ -19,70 +19,30 @@ function updateQueryStringParameter(uri, key, value) {
 }
 var goToStart = updateQueryStringParameter(here, key, value);
 
-function rolarPapelTermico()
-{
-  jQuery(".papelTermico").scrollTop(jQuery("#tabelaPapelTermico").height());
+function piscarElemento(queryCss,color='red'){
+  var id = jQuery(queryCss); // div id=1
+  var color = color; // color to highlight
+  var delayms = "800"; // mseconds to stay color
+  $(id).css("backgroundColor", color)
+    .css("transition", "all 0.5s ease") // you may also (-moz-*, -o-*, -ms-*) e.g
+    .css("backgroundColor", color).delay(delayms).queue(function () {
+      $(id).css("backgroundColor", "");
+      $(id).dequeue();
+    }); 
 }
-
-function adicionaZeros(numero)
-{
-  numero = parseInt(numero);
-  if(numero == null || numero == ""){
-    numero = "";
-  }else if(numero >= 10 && numero < 100){
-    numero = "0"+numero;
-  }else if (numero >= 1 && numero < 10) {
-    numero = "00" + numero;
-  }else{
-    numero = numero;
-  };
-  return numero;
-}
-
-function adicionarLinhaAoCupom()
-{
-  var itemSeqNum = jQuery('#tabelaPapelTermico tbody tr').length;
-  itemSeqNum = itemSeqNum + 1; 
-  itemSeqNum = adicionaZeros(itemSeqNum); 
-
-  var linhaProduto = "<tr id='prodItemCupom_" + itemSeqNum +"'>"+
-    "<td>----------------------------------------<br>"+
-  itemSeqNum+"<span> 0001 PRODUTO DE TESTE R$1.00 x2 SUBTOTAL=R$2.00</span></td></tr>";
-  jQuery('#tabelaPapelTermico > tbody').append(linhaProduto);
-  rolarPapelTermico();
-}
-
-function removerItemDoCupom(id)
-{
-  var itemSeqNum = adicionaZeros(id);
-  jQuery('#prodItemCupom_'+itemSeqNum+' > td > span').css('text-decoration','line-through')
-}
-
-function promptRemoverItemDoCupom() {
-  var itemNoCupom = prompt("Informa o número do item a ser cancelado:", "");
-  if (itemNoCupom != null || itemNoCupom != "") {
-    removerItemDoCupom(adicionaZeros(itemNoCupom));
-  } 
-}
-
-function promptGoToStart() { 
-  if (! confirm('Deseja sair da tela de vendas?')) {
+function promptGoToStart() {
+  if (!confirm('Deseja sair da tela de vendas?')) {
     return false;
-  }else{
+  } else {
     window.location.href = goToStart;
   }
 }
 
 //Adiconar eventos ao carregar a página
-jQuery(document).ready(function () {
-  jQuery('#itemSearch').focus();
+jQuery(document).ready(function () {  
 
   jQuery('.go.btnGoToStart').on('click', function () {
     window.location.href = goToStart;
-  });
-
-  jQuery('#itemSearch').on('change',function(){
-    jQuery('#qtdItemSearch').val('1');
   });
 
   // jQuery(".toTop").click(function () {
@@ -95,8 +55,5 @@ jQuery(document).ready(function () {
     scrollToID('topIsHere');
   });
 
-  jQuery(".go_acoes_venda").click(function () {
-    scrollToID('acoes_venda');
-  });
 
 });

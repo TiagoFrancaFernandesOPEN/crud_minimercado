@@ -220,8 +220,8 @@ Página PDV
 }
 
 .espacadorTermico {
-    background: transparent;
-    height: 0.1em;
+  background: transparent;
+  height: 0.1em;
 }
 
 .ocultarDesktop {
@@ -253,10 +253,15 @@ Página PDV
 }
 
 input#total_total_venda {
-  -webkit-appearance: none;
-  width: 70%;
-  background: yellow;
-  border-radius: 25px;
+    -webkit-appearance: none;
+    width: 100%;
+    background: yellow;
+    border-radius: 25px;
+    color: #2c75a5;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 1.5em;
+    text-align: center;
 }
 
 #espacamento_base {

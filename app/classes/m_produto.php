@@ -13,12 +13,14 @@ class ModelProdutos {
           $sql = "INSERT INTO produtos (
               cod_produto,
               nome,
+              preco,
               status,
               estoque,
               tipo) 
               VALUES (
                 :cod_produto,
                 :nome,
+                :preco,
                 :status,
                 :estoque,
                 :tipo
@@ -28,6 +30,7 @@ class ModelProdutos {
 
           $p_sql->bindValue(":cod_produto", $produto->getCod_produto());
           $p_sql->bindValue(":nome", $produto->getNome());
+          $p_sql->bindValue(":preco", $produto->getPreco());
           $p_sql->bindValue(":status", $produto->getStatus());
           $p_sql->bindValue(":estoque", $produto->getEstoque());
           $p_sql->bindValue(":tipo", $produto->getTipo());
@@ -45,6 +48,7 @@ class ModelProdutos {
               $sql = "UPDATE produtos set
                 cod_produto = :cod_produto,
                 nome        = :nome,
+                preco        = :preco,
                 status      = :status,
                 estoque     = :estoque,
                 tipo        = :tipo                
@@ -54,6 +58,7 @@ class ModelProdutos {
 
           $p_sql->bindValue(":cod_produto", $produto->getCod_produto());
           $p_sql->bindValue(":nome", $produto->getNome());
+          $p_sql->bindValue(":preco", $produto->getPreco());
           $p_sql->bindValue(":status", $produto->getStatus());
           $p_sql->bindValue(":estoque", $produto->getEstoque());
           $p_sql->bindValue(":tipo", $produto->getTipo());
@@ -96,6 +101,7 @@ class ModelProdutos {
         $prod = new Produto;
         $prod->setCod_produto((int)$row['cod_produto']);
         $prod->setNome($row['nome']);
+        $prod->setPreco($row['preco']);
         $prod->setStatus($row['status']);
         $prod->setEstoque((int)$row['estoque']);
         $prod->setTipo($row['tipo']);

@@ -86,20 +86,17 @@ body{background:var(--azul-mob);}
           </div>
         </div>
         <div class="col c4 produtoInputContainer">
-          <label><span>Cód. de barras:</span>
-            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Código de barras" />
-          </label>
           <label><span>Cód. de Cadastro:</span>
-            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Código de Cadastro" />
+            <input class="btn btn-sm btn-c produtoInputVal" id="produtoInputCod" type="text" placeholder="Código de Cadastro"  disabled />
           </label>
           <label><span>Quantidade:</span>
-            <input class="btn btn-sm btn-c produtoInputVal" type="number" placeholder="Quantidade"/>
+            <input class="btn btn-sm btn-c produtoInputVal" id="produtoInputQtd" type="number" placeholder="Quantidade" disabled />
           </label>
           <label><span>Valor unitário:</span>
-            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Valor unitário" disabled />
+            <input class="btn btn-sm btn-c produtoInputVal" id="produtoInputPreco" type="text" placeholder="Valor unitário" disabled />
           </label>
           <label><span>Subtotal:</span>
-            <input class="btn btn-sm btn-c produtoInputVal" type="text" placeholder="Subtotal" disabled />
+            <input class="btn btn-sm btn-c produtoInputVal" id="produtoInputSubtotal" type="text" placeholder="Subtotal" disabled />
           </label>
         </div>
       </div>
@@ -127,14 +124,6 @@ body{background:var(--azul-mob);}
               </label>
               <button class="btn btn-sm btn-c quickActionBtn" type="button" onclick="promptGoToStart()">Sair do PDV</button>
             </div>
-            <script>
-              function gerar10() {
-                for (i = 0; i < 10; i++) {
-                  adicionarLinhaAoCupom();
-                }
-              }
-            </script>
-            <button onclick="gerar10()">Gerar 10 itens</button>
         </div>
         <div id="espacamento_base">
         </div>       

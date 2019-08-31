@@ -4,6 +4,7 @@ class Produto {
  
     private $cod_produto;   //cod_produto int
     private $nome;          //nome char
+    private $preco;          //preco int
     private $status;        //status char
     private $estoque;       //estoque int
     private $tipo;          //tipo  char    
@@ -12,11 +13,12 @@ class Produto {
 
     }
     public function setAllInLine (
-        $cod_produto, $nome, $status, $estoque, $tipo
+        $cod_produto, $nome, $preco, $status, $estoque, $tipo
     )
     {
         $this->cod_produto = $cod_produto;
         $this->nome = $nome;
+        $this->preco = $preco;
         $this->status = $status;
         $this->estoque = $estoque;
         $this->tipo = $tipo;
@@ -36,6 +38,14 @@ class Produto {
 
 	public function setNome($nome) {
 		$this->nome = $nome;
+	}
+
+	public function getPreco() {
+		return $this->preco;
+	}
+
+	public function setPreco($preco) {
+		$this->preco = $preco;
 	}
 
 	public function getStatus() {

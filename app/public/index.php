@@ -8,10 +8,18 @@ require_once '../classes/m_imposto.php';
 
 $db = DB::getInstance();
 
-// $produto = new Produto;
-// $produto->setAllInLine(11113,'produto','ativo',1002,'importado');
-// $m = new ModelProdutos();
-// $m->Inserir($produto);
+/* * /
+ $produto = new Produto;
+ $randMil = rand(1000,2000);
+ $dec1 = rand(1,99);
+ $dec2 = rand(10,99);
+ $precoRand = "$dec1.$dec2";
+ $produto->setAllInLine($randMil,'produto '.$randMil,$precoRand,'ativo',rand(1000,2000),'importado');
+ $m = new ModelProdutos();
+ $m->Inserir($produto);
+ exit();
+/**/
+  
 // $produto = $m->BuscarPorID(1);
 // var_dump($produto);
 // $m->Deletar(17);
@@ -28,7 +36,6 @@ $db = DB::getInstance();
 // $restante = $imposto->getRestante(701.00);
 // var_dump($restante);
 // var_dump($restante+$desconto);
-
 
 $pagina = (!isset($_GET['p']) OR $_GET['p'] == '') 
 ? 'start' 
