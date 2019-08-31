@@ -1,10 +1,10 @@
 <?php
 $pagina = (isset($pagina))?$pagina:'';
 $pageTitle = APP_NAME;
+$include_footer = ['footer_pdv.php'] ;
+require_once '_includes/header.php';
+// require_once '_includes/menu.php'
 ?>
-<?php require_once '_includes/header.php' ?>
-
-<?php // require_once '_includes/menu.php' ?>
 
 <style>
 body{background:var(--azul-mob);}

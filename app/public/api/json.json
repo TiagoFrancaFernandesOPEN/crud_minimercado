@@ -1,0 +1,30 @@
+{
+  "people": {
+    "person": [
+      {
+        "name": "Peter",
+        "age": 43,
+        "code": 143,
+        "sex": "male"
+      },
+      {
+        "name": "Zara",
+        "age": 65,
+        "code": 165,
+        "sex": "female"
+      },
+      {
+        "name": "Tiago",
+        "age": 25,
+        "code": 194,
+        "sex": "male"
+      },
+      {
+        "name": "Jessica",
+        "age": 25,
+        "code": 195,
+        "sex": "male"
+      }
+    ]
+  }
+}
