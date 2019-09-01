@@ -55,12 +55,14 @@ CREATE TABLE `produtos` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `cod_produto` int(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
+  `preco` decimal(13,2) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `estoque` int(11) DEFAULT NULL,
   `tipo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `ID` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `ID` (`ID`),
+  UNIQUE KEY `ID_2` (`ID`,`cod_produto`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +71,7 @@ CREATE TABLE `produtos` (
 
 LOCK TABLES `produtos` WRITE;
 /*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
-INSERT INTO `produtos` VALUES (1,11113,'produto','ativo',1002,'importado');
+INSERT INTO `produtos` VALUES (1,1472,'produto 1472',60.00,'ativo',1504,'importado'),(2,1624,'produto 1624',1.00,'ativo',1552,'importado'),(3,1679,'produto 1679',54.00,'ativo',1524,'importado'),(4,1989,'produto 1989',31.00,'ativo',1641,'importado'),(5,1189,'produto 1189',60.00,'ativo',1077,'importado'),(6,1907,'produto 1907',97.00,'ativo',1350,'importado'),(7,1528,'produto 1528',25.20,'ativo',1849,'importado');
 /*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -82,4 +84,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-25  2:45:00
+-- Dump completed on 2019-09-01 16:16:21
