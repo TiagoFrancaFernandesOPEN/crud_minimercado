@@ -1,5 +1,6 @@
 <?php
 require_once './controllers_api/c_produtos.php';
+require_once './controllers_api/c_impostos.php';
 
 $db = DB::getInstance();
 
@@ -26,6 +27,7 @@ $db = DB::getInstance();
 // var_dump($restante+$desconto);
 
 $_ProdutosController = new ProdutosController();
+$_ImpostosController = new ImpostosController();
 
 $action = (!isset($_GET['api_action']) OR $_GET['api_action'] == '')
 ? 'listar_produtos' 
@@ -38,15 +40,51 @@ switch ($action) {
   $inArray = (isset($_GET['array']) AND $_GET['array'] == 'true')?true:false;
   return $_ProdutosController->listarProdutos($inArray);
     break;
+
   case 'produto_codigo':
   if($query){
     return $_ProdutosController->buscarPorCodigo($query);
   }
     break;
+  
   case 'nome':
   if($query){
     return $_ProdutosController->buscarPorNome($query);
   }
-    break;  
+    break;
+  
+/*
+  * Impostos
+  */
+
+  case 'listar_impostos':
+  $inArray = (isset($_GET['array']) AND $_GET['array'] == 'true')?true:false;
+  return $_ImpostosController->listarImpostos($inArray);
+    break;
+
+  case 'quanto_deduzir':
+  if(
+    isset($_GET['do_total']) && $_GET['do_total'] != '' &&
+    isset($_GET['produto_tipo']) && $_GET['produto_tipo'] != ''
+  )
+  {
+    $deduzir = ['do_total' => $_GET['do_total'], 'produto_tipo' => $_GET['produto_tipo']];
+  }
+  print_r( $_ImpostosController->getDeducao($deduzir) );
+    break;
+
+  case 'quanto_sobra':
+  if(
+    isset($_GET['do_total']) && $_GET['do_total'] != '' &&
+    isset($_GET['produto_tipo']) && $_GET['produto_tipo'] != ''
+  )
+  {
+    $deduzir = ['do_total' => $_GET['do_total'], 'produto_tipo' => $_GET['produto_tipo']];
+  }
+  print_r( $_ImpostosController->getRestante($deduzir) );
+    break;
+
+  
+
 }
 

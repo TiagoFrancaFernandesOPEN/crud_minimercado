@@ -99,9 +99,13 @@ Página PDV
 
 .dashed {
   border: 0 none;
-  border-top: 2px dashed #322f32;
+  border-top: 1px dashed #322f32;
   background: none;
   height: 0;
+  width: 100%;
+  float: left;
+  clear: left;
+  padding: 4px 0 10px 0;
 }
 
 .pdv_container {
@@ -211,6 +215,10 @@ Página PDV
   padding: 0.73em 0;
 }
 
+#horaAtual, #dataAtual, #operadorLogado {
+  color: var(--simple-translate-main-text);
+}
+
 .produtoInputContainer label input, .produtoInputContainer label input:hover {
   color: #000;
   background: #fff;
@@ -253,15 +261,15 @@ Página PDV
 }
 
 input#total_total_venda {
-    -webkit-appearance: none;
-    width: 100%;
-    background: yellow;
-    border-radius: 25px;
-    color: #2c75a5;
-    padding-left: 0;
-    padding-right: 0;
-    font-size: 1.5em;
-    text-align: center;
+  -webkit-appearance: none;
+  width: 100%;
+  background: yellow;
+  border-radius: 25px;
+  color: #2c75a5;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 1.5em;
+  text-align: center;
 }
 
 #espacamento_base {

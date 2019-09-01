@@ -3,7 +3,7 @@ $pagina = (isset($pagina))?$pagina:'';
 $pageTitle = APP_NAME;
 $include_footer = ['footer_pdv.php'] ;
 require_once '_includes/header.php';
-// require_once '_includes/menu.php'
+// require_once '_includes/menu.php';
 ?>
 
 <style>
@@ -48,17 +48,15 @@ body{background:var(--azul-mob);}
                   <table id="tabelaPapelTermico">
                     <thead>
                       <tr>
-                        <th>-----------------------------------<br>
-                        ------ MINIMERCADO ------<br>
-                        -----------------------------------<br>
-                        dd/mm/yyyy hh:mm:ss<br>
-                        -----------------------------------<br>
-                        ----- CUPOM NÃO FISCAL ----<br>                        
-                        <span style="float: left;text-align: left;">
-                          -------------------------------------------------<br>
-                          ITEM   CÓDIGO   DESCRIÇÃO   VL_UN   QTD   SUBTOTAL<br>
-                          -------------------------------------------------<br>
-                        </span></th>
+                        <th>---------------------------------------------<br>
+                            ---------------- MINIMERCADO ----------------<br>
+                            ---------------------------------------------<br>
+                            <?php echo diaDaSemana()." ".date('d/m/Y h:i:s') ?><br>
+                            ---------------------------------------------<br>
+                            -------------- CUPOM NÃO FISCAL -------------<br><br>
+                        <span style="text-align: left;" class="dashed">
+                          ITEM CÓDIGO &nbsp;&nbsp;DESCRIÇÃO &nbsp;&nbsp;&nbsp;&nbsp;VL_UN &nbsp;QTD &nbsp;TRIBUTO &nbsp;&nbsp;&nbsp;SUBTOTAL
+                        </span>
                       </tr>
                     </thead>
                     <tbody>
@@ -78,7 +76,7 @@ body{background:var(--azul-mob);}
                 </div>
                 <div class="col c4" id="total_total_venda_container" >
                   <label><span>Valor Total da Venda</span>
-                    <input id="total_total_venda" class="btn" type="text" placeholder="R$" disabled/>
+                    <input id="total_total_venda" class="btn" type="text" placeholder="R$0,00" disabled/>
                   </label>
                 </div>
               </div>
@@ -95,7 +93,7 @@ body{background:var(--azul-mob);}
           <label><span>Valor unitário:</span>
             <input class="btn btn-sm btn-c produtoInputVal" id="produtoInputPreco" type="text" placeholder="Valor unitário" disabled />
           </label>
-          <label><span>Subtotal:</span>
+          <label><span>Subtotal (com impostos):</span>
             <input class="btn btn-sm btn-c produtoInputVal" id="produtoInputSubtotal" type="text" placeholder="Subtotal" disabled />
           </label>
         </div>
@@ -110,76 +108,58 @@ body{background:var(--azul-mob);}
               <button class="btn btn-sm btn-c quickActionBtn" type="button">Cancelar venda</button>
               <button class="btn btn-sm btn-b quickActionBtn" type="button">Tributos</button>
               <button class="btn btn-sm btn-b quickActionBtn" type="button">Estoque</button>
-              <button class="btn btn-sm btn-b quickActionBtn" type="button" onclick="promptRemoverItemDoCupom()">Cancelar Item</button>              
+              <button class="btn btn-sm btn-b quickActionBtn" type="button" onclick="promptCancelarItemDoCupom()">Cancelar Item</button>              
             </div>
             <div class="col c12 caixaDetails">
               <label style=><span>Operador:</span>
-                <input class="btn btn-sm btn-a" type="text" placeholder="Operador" disabled>
+                <input class="btn btn-sm btn-a" id="operadorLogado" type="text" placeholder="Operador" disabled>
               </label>
               <label><span>Data:</span>
-                <input class="btn btn-sm btn-a produtoInputVal" type="text" placeholder="dd/mm/yyyy" disabled>
+                <input class="btn btn-sm btn-a produtoInputVal" id="dataAtual" type="text" placeholder="<?=date('d/m/Y') ?>" value="<?=date('d/m/Y') ?>" disabled>
               </label>
               <label><span>Hora atual:</span>
-                <input class="btn btn-sm btn-a produtoInputVal" type="text" placeholder="hh:mm:ss" disabled>
+                <input class="btn btn-sm btn-a produtoInputVal" id="horaAtual" type="text" placeholder="<?=date('h:i:s') ?>" disabled>
               </label>
               <button class="btn btn-sm btn-c quickActionBtn" type="button" onclick="promptGoToStart()">Sair do PDV</button>
             </div>
         </div>
         <div id="espacamento_base">
         </div>       
-        </div>
-      </div><!-- FIM Sidebar Direita -->
-    </div>
-    
-    <!-- <div class="row">
-      <div class="col c4 pink">
-        <h3>Titulo</h3>
-        <br>
-        <a href="#link" class="btn btn-sm btn-a">Botão</a>
       </div>
-      <div class="col c4 grey">
-        <h3>Titulo</h3>
-        <br>
-        <a href="#link" class="btn btn-sm btn-b">Botão</a>
-      </div>
-      <div class="col c4">
-        <h3>Titulo</h3>
-        <br>
-        <a href="#link" class="btn btn-sm btn-c">Botão</a>
-        <button class="btn btn-sm btn-b toTop ocultarDesktop">Subir</button>
-      </div>
-    </div> -->
-
-  </div>
-
-  <!-- <div class="row">
-      <table class="table" style=" width: 100%;">
-        <tbody>
-          <tr>
-            <th scope="col">Produto</th>
-            <th scope="col">Preço*</th>
-            <th scope="col">Imposto</th>
-            <th scope="col">Ação</th>
-          </tr> 
-          <tr>
-            <td><strong><a href="#">Produto</a></strong>
-            </td>
-            <td>R$ 20,00</td>
-            <td>10%/Un</td>
-            <td>
-              <a href="#link" class="btn btn-sm btn-a f-rigth ifModal">Add</a>
-              <a href="#link" class="btn btn-sm btn-a f-rigth">Editar</a>
-              <a href="#link" class="btn btn-sm btn-b f-rigth">Abrir</a>
-              <a href="#link" class="btn btn-sm btn-c f-rigth">Excluir</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
-  <div class="ocultarDesktop fixed-box mobile_btn">
-    <button class="btn btn-sm go_acoes_venda">Tratar Compra</button>
-    <button class="btn btn-sm toTop">Subir</button>
+    </div><!-- FIM Sidebar Direita -->
   </div>
 </div>
+
+<div class="ocultarDesktop fixed-box mobile_btn">
+  <button class="btn btn-sm go_acoes_venda">Tratar Compra</button>
+  <button class="btn btn-sm toTop">Subir</button>
+</div>
+
+<!--
+<div class="row">
+  <table class="table" style=" width: 100%;">
+    <tbody>
+      <tr>
+        <th scope="col">Produto</th>
+        <th scope="col">Preço*</th>
+        <th scope="col">Imposto</th>
+        <th scope="col">Ação</th>
+      </tr> 
+      <tr>
+        <td><strong><a href="#">Produto</a></strong>
+        </td>
+        <td>R$ 20,00</td>
+        <td>10%/Un</td>
+        <td>
+          <a href="#link" class="btn btn-sm btn-a f-rigth ifModal">Add</a>
+          <a href="#link" class="btn btn-sm btn-a f-rigth">Editar</a>
+          <a href="#link" class="btn btn-sm btn-b f-rigth">Abrir</a>
+          <a href="#link" class="btn btn-sm btn-c f-rigth">Excluir</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+-->
 
 <?php require_once '_includes/footer.php' ?>

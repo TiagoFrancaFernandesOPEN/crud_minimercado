@@ -19,6 +19,47 @@ function updateQueryStringParameter(uri, key, value) {
 }
 var goToStart = updateQueryStringParameter(here, key, value);
 
+
+
+function adicionaZeros(numero) {
+  numero = parseInt(numero);
+  if (numero == null || numero == "") {
+    numero = "";
+  } else if (numero >= 10 && numero < 100) {
+    numero = "0" + numero;
+  } else if (numero >= 1 && numero < 10) {
+    numero = "00" + numero;
+  } else {
+    numero = numero;
+  };
+  return numero;
+}
+
+function zeroParaUnidades(num) {
+  var n = parseInt(adicionaZeros(num));
+  if (num == 0) {
+    return '00';
+  } else if (n > 0 && n < 10) {
+    return '0' + n;
+  } else { return n; }
+}
+
+dataHora = new Date();
+diaMesAno = zeroParaUnidades(dataHora.getDate()) + "/" +  zeroParaUnidades(dataHora.getMonth()) + "/" + dataHora.getFullYear();
+// horaMinSeg = zeroParaUnidades(dataHora.getHours()) + ":" +  zeroParaUnidades(dataHora.getMinutes()) + ":" + zeroParaUnidades(dataHora.getSeconds());
+function horaMinSeg() {
+  var dataHora = new Date();
+  return zeroParaUnidades(dataHora.getHours()) + ":" + zeroParaUnidades(dataHora.getMinutes()) + ":" + zeroParaUnidades(dataHora.getSeconds());
+}
+
+function iniciaRelogio(){
+  var _relogioSec = setInterval(relogioSegundos, 1000);
+  function relogioSegundos() {
+    var d = new Date();
+    jQuery('#horaAtual').val(d.toLocaleTimeString('pt-BR'));
+  }
+}
+
 function piscarElemento(queryCss,color='red'){
   var id = jQuery(queryCss); // div id=1
   var color = color; // color to highlight
@@ -54,6 +95,5 @@ jQuery(document).ready(function () {
   jQuery(".toTop").click(function () {
     scrollToID('topIsHere');
   });
-
-
+  iniciaRelogio();
 });

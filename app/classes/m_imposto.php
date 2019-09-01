@@ -86,9 +86,22 @@ class ModelImpostos {
         }
     }
 
+    public function BuscarPorRegra($imposto_regra) {
+        try {
+            $sql = "SELECT * FROM impostos WHERE imposto_regra = :imposto_regra";
+            $p_sql = DB::getInstance()->prepare($sql);
+            $p_sql->bindValue(":imposto_regra", $imposto_regra);
+            $p_sql->execute();
+            return $this->showImposto($p_sql->fetch(PDO::FETCH_ASSOC));
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, tente novamente mais tarde. 
+            Erro: Código: " . $e->getCode() . " Mensagem: " . $e->getMessage();
+        }
+    }
+
     private function showImposto($row) {
         $prod = new Imposto;
-        $prod->setImposto_nome((int)$row['imposto_nome']);
+        $prod->setImposto_nome($row['imposto_nome']);
         $prod->setImposto_regra($row['imposto_regra']);
         $prod->setTipo_calculo($row['tipo_calculo']);
         $prod->setValor((int)$row['valor']);

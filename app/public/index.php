@@ -1,6 +1,7 @@
 <?php
 require_once '../config/database.php';
 require_once '../config/config.php';
+require_once '../functions/basic.php';
 require_once '../classes/produto.php';
 require_once '../classes/m_produto.php';
 require_once '../classes/imposto.php';

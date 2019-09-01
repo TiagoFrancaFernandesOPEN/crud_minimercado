@@ -1,4 +1,23 @@
-var totalVenda=0;
+totalVenda=0;
+apiURL = "//local.projetostestes/testesc/app/public/api/?api_action=";
+impostos = jQuery.getJSON(apiURL + "listar_impostos&array=true",
+  function (json) { impostos = json;});
+
+function obterImposto(do_total, produto_tipo) {
+  var imposto = function () {
+    var tmp = null;
+    $.ajax({
+      'async': false,
+      'type': "GET",
+      'url': apiURL + "quanto_deduzir&do_total=" + do_total + "&produto_tipo=" + produto_tipo,
+      'success': function (data) {
+        tmp = data;
+      }
+    });
+    return tmp;
+  }();
+  return imposto;
+}
 
 function atualizaTotalVenda()
 {
@@ -8,48 +27,28 @@ function atualizaTotalVenda()
 
 function somaTotalVenda(somar)
 {
-  console.log(totalVenda);
   totalVenda = totalVenda+somar;
-  console.log(totalVenda);
   atualizaTotalVenda();
 }
 
-function formatBRL(valor)
-{
-  var valorF = (valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
-  valorF = valorF.replace('R$ ','R$');
-  return valorF;
-}
 function subtrairTotalVenda(subtrair)
 {
-  console.log(totalVenda);
   if (totalVenda != 0 && totalVenda > 0 && totalVenda >= subtrair)
   {
-    console.log(totalVenda);
     totalVenda = totalVenda-subtrair;
-    console.log(totalVenda);
     atualizaTotalVenda();
   }
+}
+
+function formatBRL(valor) {
+  var valorF = (valor).toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
+  valorF = valorF.replace('R$ ', 'R$');
+  return valorF;
 }
 
 function rolarPapelTermico()
 {
   jQuery(".papelTermico").scrollTop(jQuery("#tabelaPapelTermico").height());
-}
-
-function adicionaZeros(numero)
-{
-  numero = parseInt(numero);
-  if(numero == null || numero == ""){
-    numero = "";
-  }else if(numero >= 10 && numero < 100){
-    numero = "0"+numero;
-  }else if (numero >= 1 && numero < 10) {
-    numero = "00" + numero;
-  }else{
-    numero = numero;
-  };
-  return numero;
 }
 
 function adicionarLinhaAoCupom(obj)
@@ -60,22 +59,33 @@ function adicionarLinhaAoCupom(obj)
   
   var nome = obj.nome;
   var preco = parseInt(obj.preco);
+  var imposto = obterImposto(obj.preco, obj.tipo);
   var cod_produto = obj.cod_produto;
   var qtd = jQuery('#qtdItemSearch').val();
-  qtd = (qtd < 1 || qtd == 0 || qtd == '')?1:qtd;
-  var subtotal = preco*qtd;
-  precoFormatado = formatBRL(preco);
-  console.log(preco);
-  console.log(subtotal);
+  qtd = (qtd < 1 || qtd == 0 || qtd == '') ? 1 : qtd;
+  var preco_X_qtd = preco * qtd;
+  var subtotal = parseInt(preco_X_qtd) + parseInt(imposto);
+  var impostoFormatado = formatBRL(parseInt(imposto));
+  var precoFormatado = formatBRL(preco);
   var subtotalFormatado = formatBRL(subtotal);
+  jQuery('#produtoInputSubtotal').val(subtotalFormatado);
   somaTotalVenda(subtotal);
 
   //ID: "1", cod_produto: "1472", nome: "produto 1472", preco: "60.00", status: "ativo"
   var linhaProduto = "<tr id='prodItemCupom_" + itemSeqNum +"'>"+
-    "<td>----------------------------------------<br>"+
-    itemSeqNum + "<span> " + cod_produto + " " + nome + " " + precoFormatado + " x" + qtd + " SUBTOTAL=" + subtotalFormatado+"</span></td></tr>";
+    "<td class='dashed'><span subtotal='"+subtotal+"'>"+itemSeqNum+"; "+cod_produto + 
+    ";  &nbsp;" + nome + ";  &nbsp;" + precoFormatado + 
+    " x" + qtd + " + " + impostoFormatado+"; TOTAL=" + subtotalFormatado+"</span></td></tr>";
   jQuery('#tabelaPapelTermico > tbody').append(linhaProduto);
   rolarPapelTermico();
+}
+
+function cancelarItemDoCupom(id) {
+  var itemSeqNum = adicionaZeros(id);
+  var item = jQuery('#prodItemCupom_' + itemSeqNum + ' > td > span');
+  item.css('text-decoration', 'line-through');
+  subtrairTotalVenda(item.attr('subtotal'));
+  item.attr('subtotal','');
 }
 
 function populaDadosNoInput(obj)
@@ -89,7 +99,6 @@ function populaDadosNoInput(obj)
   jQuery('#produtoInputCod').val(obj.cod_produto);
   jQuery('#produtoInputQtd').val(qtd);
   jQuery('#produtoInputPreco').val(preco);
-  jQuery('#produtoInputSubtotal').val(subtotalFormatado);
   jQuery('#produtoInput_nome_big').html(obj.nome);
   adicionarLinhaAoCupom(obj);
   jQuery('#qtdItemSearch').val('');
@@ -97,30 +106,22 @@ function populaDadosNoInput(obj)
   jQuery('#itemSearch').focus();
 }
 
-function removerItemDoCupom(id)
-{
-  var itemSeqNum = adicionaZeros(id);
-  jQuery('#prodItemCupom_'+itemSeqNum+' > td > span').css('text-decoration','line-through')
-}
-
-function promptRemoverItemDoCupom() {
+function promptCancelarItemDoCupom() {
   var itemNoCupom = prompt("Informa o número do item a ser cancelado:", "");
   if (itemNoCupom != null || itemNoCupom != "") {
-    removerItemDoCupom(adicionaZeros(itemNoCupom));
+    cancelarItemDoCupom(adicionaZeros(itemNoCupom));
   } 
 }
 
 function buscaEPopulaProduto()
 {
-  var api = "//local.projetostestes/testesc/app/public/api/?api_action=listar_produtos&array=true";
-  $.getJSON(api, function (data) {
+  var api = apiURL + "listar_produtos&array=true";
+  jQuery.getJSON(api, function (data) {
     datajson = data;
 
-    $.each(datajson, function (i, v) {
+    jQuery.each(datajson, function (i, v) {
       var itemSearchVal = jQuery('#itemSearch').val();
       if (v.cod_produto == itemSearchVal) {
-        console.log(itemSearchVal);
-          console.log(v);
           populaDadosNoInput(v);
           piscarElemento('#itemSearch','green');
           return;
@@ -132,6 +133,7 @@ function buscaEPopulaProduto()
     });
   });
 }
+
 
 //Registra ao carregar document
 $(function () {
@@ -161,7 +163,10 @@ $(function () {
   });
 
   jQuery('#itemSearch').on('change',function(){
-    console.log('alterado');
+    console.log('alterado pesquisa');
   });
+  
+  jQuery('#itemSearch').focus();
+  jQuery('#horaAtual').val(horaMinSeg());
 
 });
